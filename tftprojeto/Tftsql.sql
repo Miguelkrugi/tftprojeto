@@ -350,3 +350,174 @@ VALUES ('Test Store', 'www.teststore.com')
 -- O NUMERO DE JOGOS DE CADA PLATAFORMA SURGE POR UM COUNT DA TABELA plataforma_jogo, SEGUINDO UM DETERMINADO ID DA PLATAFORMA.
 
 
+---------------------------------------------------------- NOVO SQL -------------------------------------------------
+
+CREATE TABLE wishlist (
+
+   wishlist_id SERIAL primary key,
+   wishlist_user_id int,
+   wishlist_jogo_id int
+
+);
+
+--------- AINDA N FOI APLICADO -------
+ALTER TABLE wishlist
+ADD CONSTRAINT fk_wishlist_user_id FOREIGN KEY(wishlist_user_id) REFERENCES utilizador (utilizador_id);
+
+ALTER TABLE wishlist
+ADD CONSTRAINT fk_wishlist_jogo_id FOREIGN KEY(wishlist_jogo_id) REFERENCES jogo (jogo_id);
+
+
+-----------------
+
+CREATE TABLE utilizador_jogo (
+
+   id_compra SERIAL primary key,
+   id_utilizador int NOT NULL,
+   id_jogo int NOT NULL,
+   compra_data date NOT NULL DEFAULT CURRENT_DATE
+
+);
+
+-----AINDA N FOI APLICADO -------
+ALTER TABLE utilizador_jogo
+ADD CONSTRAINT fk_id_jogo FOREIGN KEY(id_jogo) REFERENCES jogo (jogo_id);
+
+ALTER TABLE utilizador_jogo
+ADD CONSTRAINT fk_id_utilizador FOREIGN KEY(id_utilizador) REFERENCES utilizador (utilizador_id);
+
+ALTER TABLE requisito
+ADD CONSTRAINT fk_req_jogo_id FOREIGN KEY(req_jogo_id) REFERENCES jogo (jogo_id);
+
+ALTER TABLE plataforma_jogo
+ADD CONSTRAINT fk_plataforma_identifier FOREIGN KEY(plataforma_identifier) REFERENCES plataforma (plataforma_id);
+
+ALTER TABLE plataforma_jogo
+ADD CONSTRAINT fk_jogo_identifier FOREIGN KEY(jogo_identifier) REFERENCES jogo (jogo_id);
+
+ALTER TABLE plataforma_follow
+ADD CONSTRAINT fk_plataforma_user_id FOREIGN KEY(plataforma_user_id) REFERENCES utilizador (utilizador_id);
+
+ALTER TABLE plataforma_follow
+ADD CONSTRAINT fk_plataforma_identifier FOREIGN KEY(plataforma_identifier) REFERENCES plataforma (plataforma_id);
+
+ALTER TABLE jogo_loja
+ADD CONSTRAINT fk_loja_identifier FOREIGN KEY (loja_identifier) REFERENCES loja (loja_id);
+
+ALTER TABLE jogo_loja
+ADD CONSTRAINT fk_jogo_identifier FOREIGN KEY (jogo_identifier) REFERENCES jogo (jogo_id);
+
+ALTER TABLE jogo_genero
+ADD CONSTRAINT fk_game_id FOREIGN KEY(game_id) REFERENCES jogo (jogo_id);
+
+ALTER TABLE jogo_genero
+ADD CONSTRAINT fk_genre_id FOREIGN KEY(genre_id) REFERENCES genero (id_genero);
+
+ALTER TABLE favorito
+ADD CONSTRAINT fk_favorite_user_id FOREIGN KEY(favorite_user_id) REFERENCES utilizador (utilizador_id);
+
+ALTER TABLE favorito
+ADD CONSTRAINT fk_favorite_jogo_id FOREIGN KEY(favorite_jogo_id) REFERENCES jogo (jogo_id);
+---------------
+
+
+CREATE TABLE utilizador (
+
+   utilizador_id SERIAL primary key,
+   utilizador_name varchar(40) NOT NULL,
+   utilizador_password varchar(40) NOT NULL,
+   utilizador_email varchar(80),
+   utilizador_dinheiro real NOT NULL,
+   utilizador_pass varchar(5000) NOT NULL
+
+);
+
+CREATE TABLE requisito (
+
+    requisito_id SERIAL primary key,
+	req_sistema_operativo varchar(120) NOT NULL,
+	req_processador varchar(120) NOT NULL,
+	req_memoria varchar(120) NOT NULL,
+	req_graficos varchar(120) NOT NULL,
+	req_esp_armazenamento varchar(120) NOT NULL,
+	req_jogo_id int NOT NULL
+
+);
+
+CREATE TABLE plataforma_jogo (
+
+   plataforma_jogo_id SERIAL primary key,
+   plataforma_identifier int,
+   jogo_identifier int
+
+);
+
+CREATE TABLE plataforma_follow (
+
+   plataforma_id_follow SERIAL primary key,
+   plataforma_user_id int,
+   plataforma_identifier int
+
+);
+
+
+CREATE TABLE plataforma (
+
+   plataforma_id SERIAL primary key,
+   plataforma_name varchar(60) NOT NULL
+
+);
+
+CREATE TABLE loja (
+
+	loja_id SERIAL primary key,
+	loja_nome varchar(120),
+	loja_domain varchar(400)
+
+);
+
+CREATE TABLE jogo_loja (
+
+	jogo_loja_id SERIAL primary key,
+	loja_identifier int,
+	jogo_identifier int
+
+);
+
+
+CREATE TABLE jogo_genero (
+
+	jogo_genero_id SERIAL primary key,
+	game_id int,
+	genre_id int
+
+);
+
+CREATE TABLE jogo (
+
+   jogo_id SERIAL primary key,
+   jogo_name varchar(120) NOT NULL,
+   jogo_released date NOT NULL,
+   jogo_rating real,
+   jogo_preco real NOT NULL,
+   jogo_downloads int,
+   jogo_desc varchar(6000),
+   jogo_link varchar(400)
+   
+);
+
+CREATE TABLE genero (
+
+    id_genero SERIAL primary key,
+	name_genero varchar(120)
+
+);
+
+CREATE TABLE favorito (
+
+   favorite_id SERIAL primary key,
+   favorite_user_id int,
+   favorite_jogo_id int
+
+);
+
