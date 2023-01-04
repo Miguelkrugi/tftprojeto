@@ -4,7 +4,7 @@ services:
         build:
             context: ./tftprojeto
         ports:
-            - "5000:5000"
+            - "6031:6031"
     nginx:
         restart: always
         build:
