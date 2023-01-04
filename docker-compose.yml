@@ -11,4 +11,8 @@ services:
             context: ./nginx
         ports:
             - "80:80"
-    
+
+networks:
+    default:
+        name: patroni_tftproject
+        external: true 
