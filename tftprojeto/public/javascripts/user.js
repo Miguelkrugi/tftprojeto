@@ -128,7 +128,9 @@ async function login() {
    
     console.log(authUser.utilizador_id);
 
-    window.location.replace("http://localhost:5000/secondpagetest.html");
+    window.location.replace("secondpagetest.html");
+
+    //http://localhost:5000/secondpagetest.htm
 } catch(err){
 
 console.log(err);
