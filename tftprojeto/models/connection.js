@@ -1,6 +1,6 @@
 var pg = require('pg'); 
  
-const connectionString = "postgresql://postgres:tftprojeto@172.19.0.8:5000/tftDB"  //Conectar com os dados normais da BD postgresql
+const connectionString = "postgresql://postgres:tftprojeto@172.19.0.8:5000/postgres"  //Conectar com os dados normais da BD postgresql
 const Pool = pg.Pool 
 const pool = new Pool({ 
     connectionString, 
