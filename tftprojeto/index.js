@@ -72,11 +72,11 @@ const cors = require('cors');
 const { isFloat32Array } = require('util/types')
 
 const corsOptions = {
-   origin: 'http://localhost:5000',
+   origin: 'http://localhost:6031',
    credentials: true,
    optionSucessStatus: 200
 }
-const port = 5000
+const port = 6031
 
 
 //app.get('/', (req, res) => res.send('Server is Upp!'))
