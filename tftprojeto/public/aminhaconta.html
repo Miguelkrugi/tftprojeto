@@ -91,7 +91,7 @@
     <div>
       <h3 style="position: absolute; margin-top: 35%; margin-left: 63%; font-size: 20px;">Jogos comprados recentemente: </h3>
 
-      <div id="organize5">
+      <div id="organize5" style="height: 35%;">
 
         <!--DIV TEST OF BOUGHT GAME--> 
         
@@ -107,7 +107,12 @@
 
       <h2 style="position: absolute; margin-top: 58%; margin-left: 3%; font-size: 30px;">Jogos do Dia</h2>
 
-      <div style="background-color:aliceblue; width:90%; height:0.1%; position:absolute; margin-top: 61.4%; margin-left: 3%;"></div>
+      <div style="background-color:white; width:90%; height:0.1%; position:absolute; margin-top: 61.4%; margin-left: 3%;"></div>
+
+      <div id="organizejogosdodia">
+
+
+      </div>
 
     </div>
 
@@ -118,6 +123,10 @@
 
 
       <div style="background-color:aliceblue; width:90%; height:0.1%; position:absolute; margin-top: 88.4%; margin-left: 3%;"></div>
+
+      <div id="organizerecentes" style="position: absolute;">
+      
+      </div>
 
     </div>
    
@@ -224,7 +233,93 @@
 
             countLibraryQuantity();
 
+            getJogosdoDia();
+
+            getRecentePlayedGames();
+
             getJogosRecentes();
+
+            //////////////////////////////
+
+            async function getRecentePlayedGames(){
+
+let gamesElem = document.getElementById("organize5");
+var utilizador_id = sessionStorage.getItem("utilizador_id");
+console.log("setItem->userId = " + utilizador_id);
+
+try {
+
+ let games = await $.ajax({
+
+ url: "/games/recenteplayed/" + id_user,
+ method: "get",
+ dataType: "json",
+
+});
+
+let html = "";
+
+for(let game of games){
+ console.log("Game: " + game); //PORQUE DÁ ERRO?
+ html += creategamerecenteplayedHTML(game);
+}
+
+/////////////////////// COLOCAR AMANHÃ OS RECENTE PLAYED (EXIBIÇÃO) //////////////////////////////
+
+gamesElem.innerHTML = html;
+
+//console.log("[utilizador] utilizador = " + JSON.stringify(favorite_quantidade.count));
+
+//document.getElementById("favoritosquantity").innerHTML = "" + number_quantity;
+
+//console.log(favorite_quantidade);
+
+
+} catch(err){
+  console.log(err);
+}
+
+}
+
+            //OBTER JOGOS DO DIA
+
+            async function getJogosdoDia(){
+
+let gamesElem = document.getElementById("organizejogosdodia");
+var utilizador_id = sessionStorage.getItem("utilizador_id");
+console.log("setItem->userId = " + utilizador_id);
+
+try {
+
+ let games = await $.ajax({
+
+ url: "/games/allgames/limited/",
+ method: "get",
+ dataType: "json",
+
+});
+
+let html = "";
+
+for(let game of games){
+ console.log("Game: " + game); //PORQUE DÁ ERRO?
+ html += creategame2HTML(game);
+}
+
+gamesElem.innerHTML = html;
+
+//console.log("[utilizador] utilizador = " + JSON.stringify(favorite_quantidade.count));
+
+//document.getElementById("favoritosquantity").innerHTML = "" + number_quantity;
+
+//console.log(favorite_quantidade);
+
+
+} catch(err){
+  console.log(err);
+}
+
+}
 
             //GET DE JOGOS RECENTES 
 
@@ -267,6 +362,20 @@
           }
 
           function creategameHTML(jogo){ //TERMINAR
+
+console.log("ID de caixa: " + jogo.jogo_id);
+
+return "<div id='selectbox65' class='selectbox65' style='width: 97.9%; height: 17%; background-color: white; padding: 5px;'>" + "<h2 id='gamename' style='color: black; font-size: 15px;'>" + jogo.jogo_name + "</h2>" + "<h2 id='gamerating' style='color: black; font-size: 12px; margin-top: -1%;'>Rating: " + jogo.jogo_rating + "</h2>" + "<h2 id='gamereleased' style='color: black; font-size: 12px; margin-top: -5.9%; margin-left: 15%;'>Lançamento: " + jogo.jogo_released + "</h2>" + "<h2 id='gamedownloads' style='color: black; font-size: 12px; margin-top: -5.9%; margin-left: 69%;'>Downloads: " + jogo.jogo_downloads + "</h2>" + "</div>"
+
+
+
+// return "<div class='selectbox5' id='selectbox55'>" + recipe.receita_titulo + "</div>";
+
+/*<p name="criador1" id="criador1" style="text-align: center;font-size: 90%; margin-top: 2%;">CRIADOR DA RECEITA </p>*/
+
+}
+
+function creategame2HTML(jogo){ //TERMINAR
 
 console.log("ID de caixa: " + jogo.jogo_id);
 

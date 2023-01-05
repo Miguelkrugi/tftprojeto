@@ -282,7 +282,7 @@ VALUES
 ('The Witcher 3: Wild Hunt', 2015-05-18, 92, 57.46, 0, "<p>The third game in a series, it holds nothing back from the player. Open world adventures of the renowned monster slayer Geralt of Rivia are now even on a larger scale. Following the source material more accurately, this time Geralt is trying to find the child of the prophecy, Ciri while making a quick coin from various contracts on the side. Great attention to the world building above all creates an immersive story, where your decisions will shape the world around you.</p>\n<p>CD Project Red are infamous for the amount of work they put into their games, and it shows, because aside from classic third-person action RPG base game they provided 2 massive DLCs with unique questlines and 16 smaller DLCs, containing extra quests and items.</p>\n<p>Players praise the game for its atmosphere and a wide open world that finds the balance between fantasy elements and realistic and believable mechanics, and the game deserved numerous awards for every aspect of the game, from music to direction.</p>", "https://www.thewitcher.com/en/witcher3"),
 ('')
 
----------------------------------- NEW CODE (4/10/2022)
+---------------------------------- NEW CODE (4/10/2022) -----------------------------------------
 
 SELECT * FROM favorito WHERE favorito.favorite_user_id = x AND favorito.favorite_jogo_id = y 
 

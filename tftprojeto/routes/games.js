@@ -11,6 +11,23 @@ router.get('/allgames', async function(req, res, next) {
   
 });
 
+router.get('/allgames/limited', async function(req, res, next) {
+
+  let result = await gamesModel.getGamesLimited();
+  res.status(result.status).send(result.data);
+
+});
+
+
+router.get('/recenteplayed/:idutilizador', async function(req, res, next) {
+
+  let idutilizador = req.params.idutilizador;
+  let result = await gamesModel.getGamesRecentePlayed(idutilizador);
+  res.status(result.status).send(result.data);
+
+});
+
+
 router.get('/recentesgames', async function(req, res, next) {
 
   let result = await gamesModel.getRecentesGames();
@@ -273,6 +290,12 @@ router.post('/addgamefavorites/:idutilizador/:idjogo', async function(req, res, 
 });
 
 
+router.post('/insertnewgamehistorico', async function(req, res, next) {
+  let newUser = req.body;
+
+  let result = await usersModel.saveHistorico(newUser);
+  res.status(result.status).send(result.result);
+});
 
 //VERIFICAR COMPRA PARA ADICIONAR AOS FAVORITOS
 

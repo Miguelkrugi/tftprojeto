@@ -22,6 +22,32 @@ module.exports.getGames = async function() {
     }
 }
 
+module.exports.getGamesLimited = async function() {
+    try {
+        let sql = "select * from jogo order by random() limit 5"; //FALTA ALTERAR O LIMITE PARA 50 (TEREMOS 150/200 JOGOS HARDCODED NO TOTAL)
+        let result = await pool.query(sql);
+        let games = result.rows;
+        console.log("[gamesModel.getGames] games = " + JSON.stringify(games));
+        return { status: 200, data: games };
+    } catch (err) {
+        console.log(err);
+        return { status: 500, data: err };
+    }
+}
+
+module.exports.getGamesRecentePlayed = async function(utilizador_id) {
+    try {
+        let sql = "SELECT *, jogo.jogo_name, jogo.jogo_rating, jogo.jogo_id FROM historico_jogos INNER JOIN jogo ON jogo.jogo_id = historico_jogos.jogo_id WHERE historico_jogos.utilizador_id = " + utilizador_id + " ORDER BY historico_jogos.created_at ASC "; //FALTA ALTERAR O LIMITE PARA 50 (TEREMOS 150/200 JOGOS HARDCODED NO TOTAL)
+        let result = await pool.query(sql);
+        let games = result.rows;
+        console.log("[gamesModel.getGames] games = " + JSON.stringify(games));
+        return { status: 200, data: games };
+    } catch (err) {
+        console.log(err);
+        return { status: 500, data: err };
+    }
+}
+
 ///// GET PLATFORMS
 
 module.exports.getPlatforms = async function() {
@@ -186,6 +212,42 @@ module.exports.saveGame = async function(user_id, game_id) {
     }
 }
 
+
+///////////////////////7 SAVE TO HISTORICO /////////////////////////////
+
+module.exports.saveHistorico = async function(historico_item) {
+    //console.log("[usersModel.saveUser] user = " + JSON.stringify(user));
+    /* checks all fields needed and ignores other fields
+    if (typeof user != "object" || failUser(user)) {
+        if (user.errMsg)
+            return { status: 400, data: { msg: user.errMsg } };
+        else
+            return { status: 400, data: { msg: "Malformed data" } };
+    }*/
+    //let password = brcypt.hashSync(user.user_password, salt);
+    try {
+
+        let sql =
+            "INSERT " +
+            "INTO historico_jogos " +
+            "(utilizador_id, jogo_id) " +
+            "VALUES ($1, $2) " +
+            "RETURNING item_historico_id";
+
+            //console.log(user.user_name + "|" + user.user_password + "|" + user.user_morada + "|" + user.user_email + "|" + user.user_points + "|" + user.user_admin + "|" + user.user_pt + "|" + user.user_nutri);
+        //let result = await pool.query(sql, [newgame.id_utilizador, newgame.id_jogo]);
+        let result = await pool.query(sql, [historico_item.utilizador_id, historico_item.jogo_id]);
+        
+        return { status: 200, result: result };
+    } catch (err) {
+
+        console.log(err);
+        return { status: 500, result: err };
+    }
+}
+
+
+///////////////////////////////////////////////////////////////////////////
 module.exports.saveGameWishlist = async function(game) {
     //console.log("[usersModel.saveUser] user = " + JSON.stringify(user));
      //checks all fields needed and ignores other fields
