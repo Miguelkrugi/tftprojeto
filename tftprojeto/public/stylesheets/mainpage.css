@@ -440,7 +440,7 @@ height: 100%;
 
 .selectbox105 {
   width: 23%;
-  height: 18%;
+  height: 87%;
   border: 1px solid white;
   border-radius: 6%;
   cursor: pointer;
@@ -585,7 +585,7 @@ height: 100%;
 
   width: 20%;
   height: 42%;
-  background-color: #04AA6D;
+  background-color: transparent;
   position: absolute;
   margin-top: 90%;
   margin-left: 3%;
@@ -612,11 +612,27 @@ height: 100%;
 
 }
 
+#organize69 {
+
+  width: 20%;
+  height: 42%;
+  background-color: transparent;
+  position: absolute;
+  margin-top: 90%;
+  margin-left: 25%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+
+
+}
+
 #organize11 {
 
   width: 20%;
   height: 42%;
-  background-color: #04AA6D;
+  background-color: transparent;
   position: absolute;
   margin-top: 90%;
   margin-left: 47%;
@@ -631,7 +647,7 @@ height: 100%;
 
   width: 20%;
   height: 42%;
-  background-color: #04AA6D;
+  background-color: transparent;
   position: absolute;
   margin-top: 90%;
   margin-left: 69%;

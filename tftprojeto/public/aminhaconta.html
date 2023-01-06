@@ -243,7 +243,7 @@
 
             async function getRecentePlayedGames(){
 
-let gamesElem = document.getElementById("organize5");
+let gamesElem = document.getElementById("organizerecentes");
 var utilizador_id = sessionStorage.getItem("utilizador_id");
 console.log("setItem->userId = " + utilizador_id);
 
@@ -280,6 +280,25 @@ gamesElem.innerHTML = html;
 }
 
 }
+
+function creategamerecenteplayedHTML(jogo){ //TERMINAR
+
+console.log("ID de caixa: " + jogo.jogo_id);
+
+//return "<div id='selectbox65' class='selectbox65' style='width: 97.9%; height: 17%; background-color: white; padding: 5px;'>" + "<h2 id='gamename' style='color: black; font-size: 15px;'>" + jogo.jogo_name + "</h2>" + "<h2 id='gamerating' style='color: black; font-size: 12px; margin-top: -1%;'>Rating: " + jogo.jogo_rating + "</h2>" + "<h2 id='gamereleased' style='color: black; font-size: 12px; margin-top: -5.9%; margin-left: 15%;'>Lançamento: " + jogo.jogo_released + "</h2>" + "<h2 id='gamedownloads' style='color: black; font-size: 12px; margin-top: -5.9%; margin-left: 69%;'>Downloads: " + jogo.jogo_downloads + "</h2>" + "</div>"
+
+return "<div class='selectbox105' id='selectbox55'>" + "<p name='gamename1' id='gamename1' style='text-align: center; font-size: 90%; margin-top: 10%;color:black;'><b>" + jogo.jogo_name + "</b></p>" + "<p name='gamereleased1' id='gamereleased1' style='text-align: center; font-size: 90%; margin-top: 22%;color:black;'>" + jogo.jogo_released + "</p>" + "<p name='rating1' id='rating1' style='text-align: center; font-size: 90%; margin-top: 1%;color:black;'>" + jogo.jogo_rating + "</p>" + "<p name='downloads1' id='downloads1' style='text-align: center; font-size: 90%; margin-top: 1%;color:black;'>" + jogo.jogo_downloads + "</p>" + "<p name='downloads1' id='downloads1' style='text-align: center; font-size: 90%; margin-top: 1%;color:black;'>" + jogo.jogo_preco + "</p>" +  "<button onclick='addtolibrary("+ JSON.stringify(jogo) + ")' style='margin-top: 5%; margin-left: 7%;'>Comprar Jogo</button>" + "<button onclick='addtowishlist(" + JSON.stringify(jogo) + ")'>Adicionar á Wishlist</button>" + "</div>"
+
+
+// return "<div class='selectbox5' id='selectbox55'>" + recipe.receita_titulo + "</div>";
+
+/*<p name="criador1" id="criador1" style="text-align: center;font-size: 90%; margin-top: 2%;">CRIADOR DA RECEITA </p>*/
+
+}
+
+
+
+
 
             //OBTER JOGOS DO DIA
 

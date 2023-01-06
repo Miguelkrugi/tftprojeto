@@ -27,6 +27,14 @@ router.get('/recenteplayed/:idutilizador', async function(req, res, next) {
 
 });
 
+router.get('/getmytokens/:idutilizador', async function(req, res, next) {
+
+  let idutilizador = req.params.idutilizador;
+  let result = await gamesModel.getMyTokens(idutilizador);
+  res.status(result.status).send(result.data);
+
+});
+
 
 router.get('/recentesgames', async function(req, res, next) {
 

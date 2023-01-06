@@ -37,7 +37,20 @@ module.exports.getGamesLimited = async function() {
 
 module.exports.getGamesRecentePlayed = async function(utilizador_id) {
     try {
-        let sql = "SELECT *, jogo.jogo_name, jogo.jogo_rating, jogo.jogo_id FROM historico_jogos INNER JOIN jogo ON jogo.jogo_id = historico_jogos.jogo_id WHERE historico_jogos.utilizador_id = " + utilizador_id + " ORDER BY historico_jogos.created_at ASC "; //FALTA ALTERAR O LIMITE PARA 50 (TEREMOS 150/200 JOGOS HARDCODED NO TOTAL)
+        let sql = "SELECT *, jogo.jogo_name, jogo.jogo_rating, jogo.jogo_id FROM historico_jogos INNER JOIN jogo ON jogo.jogo_id = historico_jogos.jogo_id WHERE historico_jogos.utilizador_id = " + utilizador_id + " ORDER BY historico_jogos.created_at ASC LIMIT 4 "; //FALTA ALTERAR O LIMITE PARA 50 (TEREMOS 150/200 JOGOS HARDCODED NO TOTAL)
+        let result = await pool.query(sql);
+        let games = result.rows;
+        console.log("[gamesModel.getGames] games = " + JSON.stringify(games));
+        return { status: 200, data: games };
+    } catch (err) {
+        console.log(err);
+        return { status: 500, data: err };
+    }
+}
+
+module.exports.getMyTokens = async function(utilizador_id) {
+    try {
+        let sql = "SELECT utilizador_dinheiro FROM utilizador WHERE utilizador.utilizador_id = " + utilizador_id; //FALTA ALTERAR O LIMITE PARA 50 (TEREMOS 150/200 JOGOS HARDCODED NO TOTAL)
         let result = await pool.query(sql);
         let games = result.rows;
         console.log("[gamesModel.getGames] games = " + JSON.stringify(games));

@@ -65,7 +65,7 @@
 
     <div id="maisbaixados">
 
-      <div id="organize8">
+      <div id="organize8" style="background-color: transparent;">
 
 
        
@@ -83,7 +83,7 @@
 
       </div>
 
-      <div id="organize10">
+      <div id="organize69">
 
       </div>
 
@@ -197,7 +197,7 @@
 
             document.getElementById("hellouser").innerHTML = "Olá, " + utilizador_name;
 
-            document.getElementById("tokensuser").innerHTML = "Tokens: " + utilizador_dinheiro;
+          getUserAtualTokens();
 
 
            // document.getElementById("hellouser").innerHTML = "Olá, " + utilizador_name + " !";
@@ -215,6 +215,43 @@
             getWebGameThree();
 
             getWebGameFour();
+
+
+            ////////////////// GET USER ATUAL TOKENS ////////////////////
+
+            async function getUserAtualTokens(){
+
+console.log("Obtendo os jogos da library")
+
+// let recipeName = document.getElementById("nome1")
+ var utilizador_id = sessionStorage.getItem("utilizador_id");
+ console.log("setItem->userId = " + utilizador_id);
+
+try{
+
+let games = await $.ajax({
+
+url: "/games/getmytokens/" + utilizador_id,
+method: "get",
+dataType: "json",
+
+});
+
+console.log("[utilizador] utilizador = " + JSON.stringify(games));
+
+let html = "";
+
+document.getElementById("tokensuser").innerHTML = "Tokens: " + games[0].utilizador_dinheiro;
+
+console.log("OBTEVE");
+//  recipeName.innerHTML = html;
+
+
+
+} catch(err){
+ console.log(err);
+}
+}
 
             ////////////////// GET WEB GAME FOUR ///////////////////
 
