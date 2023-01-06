@@ -575,7 +575,7 @@ for(let game of games){
 
   //ENVIAR METODO
   let newExercise = await $.ajax({
-   url: "/users/insertplate/",
+   url: "/games/addgame/" + utilizador_id + "/" + jogo_clicked_id,
    method: "post",
    data: JSON.stringify(data),
    contentType: "application/json",

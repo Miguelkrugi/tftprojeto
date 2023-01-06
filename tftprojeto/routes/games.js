@@ -339,6 +339,16 @@ router.post('/addgame/:idutilizador/:idjogo', async function(req, res, next) {
 
 });
 
+router.get('/sentmail/:idutilizador/:emailutilizador', async function(req, res, next) {
+
+  let emailutilizador = req.params.emailutilizador;
+  let idutilizador = req.params.idutilizador;
+  console.log("Retrieving games with id " + idutilizador);
+  let result = await gamesModel.getPhrase(idutilizador, emailutilizador);
+  res.status(result.status).send(result.data);
+
+});
+
   //GET DOS JOGOS FAVORITOS 
 
   router.get('/gamesfavorite/:idutilizador', async function(req, res, next) {

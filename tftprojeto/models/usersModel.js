@@ -2,6 +2,8 @@ const { response } = require("express");
 var pool = require("./connection");
 var bcrypt = require('bcrypt');
 var salt = 10;
+const { nodemailer } = require("nodemailer");
+
 
 module.exports.getUsers = async function() {
     try {

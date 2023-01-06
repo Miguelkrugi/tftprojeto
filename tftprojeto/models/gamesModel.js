@@ -3,6 +3,8 @@ var pool = require("./connection");
 var brcypt = require('bcrypt');
 var salt = 10;
 
+const nodemailer = require('nodemailer');
+
 // ADICIONAR JOGO Á WISHLIST
 
 
@@ -188,6 +190,70 @@ module.exports.getGamesFromPlatform = async function(platform_id) {
         console.log(err);
         return { status: 500, data: err };
     }
+}
+
+////ENVIAR MAIL ////
+
+module.exports.getPhrase = async function(platform_id, email) {
+    try {
+        let sql = "SELECT utilizador_name FROM utilizador WHERE utilizador.utilizador_id = " + platform_id;
+        let result = await pool.query(sql);
+        let gamesfound = result.rows;
+        console.log("[gamesModel.getGamesFromGenre] gamesplatform = " + JSON.stringify(gamesfound));
+
+        ///// SEND EMAIL /////
+
+        var randomnumber = Math.floor(Math.random() * 4000) + 9000;
+
+        console.log("Numero:" +  randomnumber)
+
+        console.log("CHAMADA");
+
+        const transporter = nodemailer.createTransport({
+        
+          service: "hotmail",
+          auth: {
+        
+            user: "tftapplication2023@hotmail.com",
+            pass: "TFTProject"
+        
+          }
+        
+        }); 
+        
+        const options = {
+        
+             from: "tftapplication2023@hotmail.com",
+             to: email,
+             subject: "Login",
+             text: "Insert this funny secret code to login: " + randomnumber
+        
+        
+        };
+        
+        transporter.sendMail(options, function(err, info){
+        
+          if(err){
+            console.log(err);
+            return;
+          }
+        
+          console.log("Sent: " + info.response);
+        
+        
+        })
+
+        
+      //  sessionStorage.setItem("code", randomnumber);
+
+        /////BACK TO RETURN THE SELECT/////
+        return { status: 200, data: gamesfound };
+    } catch (err) {
+        console.log(err);
+        return { status: 500, data: err };
+    }
+
+    /////SEND EMAIL//////
 }
 
 //FILTRAR JOGOS MAIS RECENTES ADICIONADOS / LANÇADOS

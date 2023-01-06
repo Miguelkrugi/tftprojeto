@@ -1,43 +1,34 @@
-import nodemailer from "nodemailer";
-
 window.onload = function exampleFunction() {
 
+    var utilizador_id = sessionStorage.getItem("utilizador_id");
+    var utilizador_email = sessionStorage.getItem("utilizador_email");
 
+console.log("CHAMADA!");
+
+getRequestEmail(utilizador_id, utilizador_email);
     
-console.log("CHAMADA");
-
-const transporter = createTransport({
-
-  service: "gmail",
-  auth: {
-
-    user: "tftapplication2023@gmail.com",
-    pass: "tftproject"
-
-  }
-
-}); 
-
-const options = {
-
-     from: "tftapplication2023@gmail.com",
-     to: "miguelcruzcolegio@gmail.com",
-     subject: "Test Email To Change",
-     text: "This is just a simple test email !"
-
-
-};
-
-transporter.sendMail(options, function(err, info){
-
-  if(err){
-    console.log(err);
-    return;
-  }
-
-  console.log("Sent: " + info.response);
-
-
-})
 
 }
+
+async function getRequestEmail(uti_id, uti_email){
+
+    console.log("Obtendo os jogos")
+
+     var utilizador_id2 = sessionStorage.getItem("utilizador_id");
+     console.log(uti_id);
+    
+    try{
+    
+    let games = await $.ajax({
+    
+    url: "/games/sentmail/" + uti_id + "/" + uti_email,
+    method: "get",
+    dataType: "json",
+    
+    });
+    
+    
+    } catch(err){
+     console.log(err);
+    }
+    }
