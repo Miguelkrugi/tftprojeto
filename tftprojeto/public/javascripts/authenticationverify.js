@@ -1,8 +1,12 @@
-const nodemailer = require('nodemailer');
+import nodemailer from "nodemailer";
 
 window.onload = function exampleFunction() {
 
-const transporter = nodemailer.createTransport({
+
+    
+console.log("CHAMADA");
+
+const transporter = createTransport({
 
   service: "gmail",
   auth: {
