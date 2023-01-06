@@ -3,7 +3,7 @@
 	------------- ENCRIPTAÇÃO ------------------------
 		
 INSERT INTO utilizador (utilizador_name, utilizador_password, utilizador_email, utilizador_dinheiro, utilizador_pass)
-VALUES ('beatricedoe', 'beatricedoepassword', 'beatricedoe@gmail.com', 500, PGP_SYM_ENCRYPT('beatricedoepassword', 'key')::text)
+VALUES ('ola', 'ola', 'ola@gmail.com', 500, PGP_SYM_ENCRYPT('ola', 'key')::text)
 		
 		------------- DESENCRIPTAÇÃO ---------------------
 SELECT utilizador.utilizador_name, PGP_SYM_DECRYPT(utilizador.utilizador_pass::bytea, 'key') FROM utilizador WHERE utilizador.utilizador_id = 10;
