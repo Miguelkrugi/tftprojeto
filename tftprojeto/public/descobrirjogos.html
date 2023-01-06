@@ -645,11 +645,10 @@ gamesElem.innerHTML = html;
 
 }
 
-         async function getGames(){
+async function getGames(){
 
 console.log("Obtendo os jogos")
 
-// let recipeName = document.getElementById("nome1")
  let gamesElem = document.getElementById("organize");
  var utilizador_id = sessionStorage.getItem("utilizador_id");
  console.log("setItem->userId = " + utilizador_id);
@@ -674,7 +673,6 @@ for(let game of games){
 }
 
 console.log("OBTEVE");
-//  recipeName.innerHTML = html;
 
 gamesElem.innerHTML = html;
 
@@ -774,17 +772,9 @@ console.log(newLibraryGame);
 
     
   }
-
-
- 
-  //console.log("[utilizador] utilizador = " + JSON.stringify(jogo_comprado));
-
-  
-
 } catch(err){
    console.log(err);
  }
-
 
 }
 

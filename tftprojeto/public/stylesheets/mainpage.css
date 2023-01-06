@@ -438,6 +438,18 @@ height: 100%;
   
 }
 
+.selectbox105 {
+  width: 23%;
+  height: 18%;
+  border: 1px solid white;
+  border-radius: 6%;
+  cursor: pointer;
+  color: black;
+  background-color: white;
+  padding: 5px;
+  
+}
+
 .selectbox88 {
   width: 23%;
   height: 38%;

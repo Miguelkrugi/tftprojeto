@@ -293,7 +293,7 @@ router.post('/addgamefavorites/:idutilizador/:idjogo', async function(req, res, 
 router.post('/insertnewgamehistorico', async function(req, res, next) {
   let newUser = req.body;
 
-  let result = await usersModel.saveHistorico(newUser);
+  let result = await gamesModel.saveHistorico(newUser);
   res.status(result.status).send(result.result);
 });
 

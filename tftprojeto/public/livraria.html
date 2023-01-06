@@ -470,6 +470,15 @@ return "<div class='selectbox55' id='selectbox55'>" + "<p name='gamename1' id='g
 
 }
 
+//////////////////// ACEDER AO JOGO ////////////////////
+
+function redirectToPlays(jogo){
+
+  sessionStorage.setItem('jogo_id', jogo.jogo_id);
+  sessionStorage.setItem('jogo_name', jogo.jogo_name);
+
+}
+
 ///////////////ADICIONAR AO HISTORICO /////////////////////
 
 async function addtohistorico(jogo){
@@ -509,6 +518,8 @@ console.log(err);
 }
 
 console.log("Stored...");
+
+redirectToPlays(jogo);
 
 }
 

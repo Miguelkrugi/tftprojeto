@@ -521,3 +521,179 @@ CREATE TABLE favorito (
 
 );
 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+CREATE TABLE utilizador(
+
+	utilizador_id serial primary key,
+	utilizador_name varchar(130) NOT NULL,
+	utilizador_password varchar(5000) NOT NULL,
+	utilizador_email varchar(300) NOT NULL,
+	utilizador_dinheiro real DEFAULT 500,
+    utilizador_pass varchar(5000) NOT NULL
+
+)
+
+CREATE TABLE jogo(
+
+   jogo_id serial primary key,
+   jogo_name varchar(150) NOT NULL,
+   jogo_released DATE NOT NULL,
+   jogo_rating int NOT NULL,
+   jogo_preco real NOT NULL,
+   jogo_downloads int NOT NULL,
+   jogo_desc varchar(700) NOT NULL,
+   jogo_link varchar(150) NOT NULL
+
+)
+
+CREATE TABLE wishlist(
+
+   wishlist_id serial primary key,
+   wishlist_user_id int NOT NULL,
+   wishlist_jogo_id int NOT NULL
+
+)
+
+
+ALTER TABLE wishlist
+ADD CONSTRAINT fk_wishlist_user_id FOREIGN KEY(wishlist_user_id) REFERENCES utilizador (utilizador_id);
+
+ALTER TABLE wishlist
+ADD CONSTRAINT fk_wishlist_jogo_id FOREIGN KEY(wishlist_jogo_id) REFERENCES jogo (jogo_id);
+
+CREATE TABLE utilizador_jogo(
+
+   id_compra serial primary key,
+   id_utilizador int NOT NULL,
+   id_jogo int NOT NULL
+
+)
+
+ALTER TABLE utilizador_jogo ADD COLUMN compra_data TIMESTAMP;
+ALTER TABLE utilizador_jogo ALTER COLUMN compra_data SET DEFAULT now();
+
+CREATE TABLE requisito(
+
+   requisito_id serial primary key,
+   req_sistema_operativo varchar(250),
+   req_processador varchar(550),
+   req_memoria real NOT NULL,
+   req_graficos varchar(550),
+   req_esp_armazenamento real NOT NULL,
+   req_jogo_id int NOT NULL
+
+)
+
+ALTER TABLE requisito
+ADD CONSTRAINT fk_req_jogo_id FOREIGN KEY(req_jogo_id) REFERENCES jogo (jogo_id);
+
+CREATE TABLE plataforma (
+
+	plataforma_id serial primary key,
+	plataforma_name varchar(500) NOT NULL
+
+)
+
+CREATE TABLE plataforma_jogo(
+
+    plataforma_jogo_id serial primary key,
+	plataforma_identifier int NOT NULL,
+	jogo_identifier int NOT NULL
+
+)
+
+ALTER TABLE plataforma_jogo
+ADD CONSTRAINT fk_plataforma_identifier FOREIGN KEY(plataforma_identifier) REFERENCES plataforma (plataforma_id);
+
+ALTER TABLE plataforma_jogo
+ADD CONSTRAINT fk_jogo_identifier FOREIGN KEY(jogo_identifier) REFERENCES jogo (jogo_id);
+
+CREATE TABLE plataforma_follow(
+
+    plataforma_id_follow serial primary key,
+	plataforma_user_id int NOT NULL,
+	plataforma_identifier int NOT NULL
+
+)
+
+ALTER TABLE plataforma_follow
+ADD CONSTRAINT fk_plataforma_user_id FOREIGN KEY(plataforma_user_id) REFERENCES utilizador (utilizador_id);
+
+ALTER TABLE plataforma_follow
+ADD CONSTRAINT fk_plataforma_identifier FOREIGN KEY(plataforma_identifier) REFERENCES plataforma (plataforma_id);
+
+CREATE TABLE loja(
+
+    loja_id serial primary key,
+	loja_nome varchar(450) NOT NULL,
+	loja_domain varchar(450) NOT NULL
+
+)
+
+CREATE TABLE jogo_loja(
+
+    jogo_loja_id serial primary key,
+	loja_identifier int NOT NULL,
+	jogo_identifier int NOT NULL
+
+)
+
+ALTER TABLE jogo_loja
+ADD CONSTRAINT fk_loja_identifier FOREIGN KEY(loja_identifier) REFERENCES loja (loja_id);
+
+ALTER TABLE jogo_loja
+ADD CONSTRAINT fk_jogo_identifier FOREIGN KEY(jogo_identifier) REFERENCES jogo (jogo_id);
+
+CREATE TABLE genero(
+
+    id_genero serial primary key,
+	name_genero varchar(450) NOT NULL
+
+)
+
+CREATE TABLE jogo_genero(
+
+    jogo_genero_id serial primary key,
+	game_id int NOT NULL,
+	genre_id int NOT NULL
+
+)
+
+ALTER TABLE jogo_genero
+ADD CONSTRAINT fk_game_id FOREIGN KEY(game_id) REFERENCES jogo (jogo_id);
+
+ALTER TABLE jogo_genero
+ADD CONSTRAINT fk_genre_id FOREIGN KEY(genre_id) REFERENCES genero (id_genero);
+
+CREATE TABLE historico_jogos(
+
+    item_historico_id serial primary key,
+	utilizador_id int NOT NULL,
+	jogo_id int NOT NULL
+
+)
+
+ALTER TABLE historico_jogos
+ADD CONSTRAINT fk_utilizador_id FOREIGN KEY(utilizador_id) REFERENCES utilizador (utilizador_id);
+
+ALTER TABLE historico_jogos
+ADD CONSTRAINT fk_jogo_id FOREIGN KEY(jogo_id) REFERENCES jogo (jogo_id);
+
+
+CREATE TABLE favorito(
+
+    favorite_id serial primary key,
+	favorite_user_id int NOT NULL,
+	favorite_jogo_id int NOT NULL
+
+)
+
+ALTER TABLE favorito
+ADD CONSTRAINT fk_favorite_user_id FOREIGN KEY(favorite_user_id) REFERENCES utilizador (utilizador_id);
+
+ALTER TABLE favorito
+ADD CONSTRAINT fk_favorite_jogo_id FOREIGN KEY(favorite_jogo_id) REFERENCES jogo (jogo_id);
+
+
